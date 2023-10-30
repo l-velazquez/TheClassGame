@@ -48,6 +48,10 @@ public class Sight : MonoBehaviour
         Gizmos.DrawWireSphere(transform.position, distance);
 
         Vector3 rightDirection = Quaternion.Euler(0,angle,0)*transform.forward;
+        Gizmos.DrawRay(transform.position,rightDirection*distance);
+
+        Vector3 leftDirection = Quaternion.Euler(0,-angle,0)*transform.forward;
+        Gizmos.DrawRay(transform.position,leftDirection*distance);
     }
 }
 
