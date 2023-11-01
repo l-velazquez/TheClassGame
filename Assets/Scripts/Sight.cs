@@ -16,7 +16,8 @@ public class Sight : MonoBehaviour
     {
         // todo lo que este dentro de esfera metelo a una lista de collider.
         Collider[] colliders = Physics.OverlapSphere(transform.position,
-                                                     distance, objectsLayer);
+                                                     distance, 
+                                                     objectsLayer);
         for (int i = 0; i < colliders.Length; i++)
         {
             // el colider especifico.
@@ -26,16 +27,33 @@ public class Sight : MonoBehaviour
             Vector3.Normalize(collider.bounds.center - transform.position);
             //angulo hacia collider.
             float angleToCollider = 
-            Vector3.Angle(transform.forward, directionToController);
+            Vector3.Angle(transform.forward, 
+                          directionToController);
             //verifies angle to collider and angle.
             if (angleToCollider < angle)
             {
                 //verifies if an object is detected.
-                if (Physics.Linecast(transform.position,
-                                     collider.bounds.center, obstacleLayer))
+                if (!Physics.Linecast(transform.position,
+                                     collider.bounds.center, 
+                                     out RaycastHit hit, 
+                                     obstacleLayer))
                 {
+                    Debug.DrawLine(transform.position, 
+                                   collider.bounds.center, 
+                                   Color.green, 
+                                   2,
+                                   true);
+
                     detectedObject = collider;
                     break;
+                }
+                else
+                {
+                    Debug.DrawLine(transform.position, 
+                                   hit.point, 
+                                   Color.red, 
+                                   2,
+                                   true);
                 }
             }
 
@@ -47,12 +65,14 @@ public class Sight : MonoBehaviour
         Gizmos.color = Color.red;
         Gizmos.DrawWireSphere(transform.position, distance);
 
-        Vector3 rightDirection = Quaternion.Euler(0,angle,0)*transform.forward;
-        Gizmos.DrawRay(transform.position,rightDirection*distance);
+        Vector3 rightDirection = Quaternion.Euler(0,angle,0) * transform.forward;
+        Gizmos.DrawRay(transform.position, rightDirection * distance);
 
-        Vector3 leftDirection = Quaternion.Euler(0,-angle,0)*transform.forward;
-        Gizmos.DrawRay(transform.position,leftDirection*distance);
+        Vector3 leftDirection = Quaternion.Euler(0,-angle,0) * transform.forward;
+        Gizmos.DrawRay(transform.position, leftDirection * distance);
+
     }
+
 }
 
 
