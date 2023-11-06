@@ -74,9 +74,9 @@ public class EnemyFSM : MonoBehaviour
         {
             currentState = EnemyState.ChasePlayer;
         }
-        float distanceToBase = Vector3.Distance(transform.position,sightSensor.transform.position);
+        float distanceToPlayer = Vector3.Distance(transform.position,sightSensor.transform.position);
 
-        if distanceToPlayer > playerAttackDistance * 1.1)
+        if (distanceToPlayer > playerAttackDistance * 1.1)
         {
             currentState = EnemyState.ChasePlayer;
         }
