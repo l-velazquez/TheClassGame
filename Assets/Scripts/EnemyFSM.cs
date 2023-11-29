@@ -135,6 +135,7 @@ public class EnemyFSM : MonoBehaviour
             Instantiate(bulletPrefab,
                          transform.position, 
                          transform.rotation);
+            
         }
     }
     void LookTo(Vector3 targetPosition)
