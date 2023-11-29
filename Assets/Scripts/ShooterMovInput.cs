@@ -13,6 +13,9 @@ public class ShooterMovInput : MonoBehaviour
     public GameObject prefab;
     public GameObject shootPoint;
 
+    //add partical system
+    public ParticleSystem muzzelEffect;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -37,6 +40,7 @@ public class ShooterMovInput : MonoBehaviour
             GameObject clone = Instantiate(prefab);
             clone.transform.position = shootPoint.transform.position;
             clone.transform.rotation = shootPoint.transform.rotation;
+            muzzelEffect.Play();
         }
     }
 
